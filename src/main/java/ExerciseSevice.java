@@ -16,6 +16,11 @@ import java.util.*;
 @SuppressWarnings("unchecked")
 class ExerciseSevice {
     private static boolean isNegative = false;
+    private static List<QuestionFeature> checkRepeatList = new ArrayList<>();
+    //按计算顺序记录每步的答案
+    private static List<Fraction> answerList = new ArrayList<>();
+    //按计算顺序记录每个操作符
+    private static List<String> operatorList = new ArrayList<>();
 
     /**
      * 生成题目与答案，并写入文件
@@ -49,10 +54,10 @@ class ExerciseSevice {
     /**
      * 随机生成题目与对应的答案, 存入 questionsMap
      */
-    public static void getQuestion(int questionsSum, int range) {
+    static void getQuestion(int questionsSum, int range) {
         //循环随机生成题目
         while (Main.questionsMap.size() < questionsSum) {
-            List questionList = new ArrayList();
+            List questionList = new LinkedList();
             //该表达式是否包含括号
             boolean havebrackets = false;
             Random random = new Random();
@@ -60,7 +65,7 @@ class ExerciseSevice {
             int operatorSum = random.nextInt(3) + 1;
             int currentOperatorNum = 0;
             while (currentOperatorNum < operatorSum) {
-                List list = new ArrayList();
+                List list = new LinkedList();
                 //生成运算符
                 String operator = Util.getOperator();
                 //决定是否为分数
@@ -111,13 +116,27 @@ class ExerciseSevice {
                 questionList.add(")");
             }
             //生成题目答案
-            Fraction answer = getAnswer(new ArrayList(questionList));
+            Fraction answer = getAnswer(new LinkedList(questionList));
             if (isNegative) {
                 isNegative = false;
+                answerList.clear();
+                operatorList.clear();
                 continue;
             }
-            //将题目与对应的答案存入 questionsMap
-            Main.questionsMap.put(new Question(questionList).toString(), Util.getNum(answer).toString());
+            QuestionFeature questionFeature = new QuestionFeature(new ArrayList<>(answerList),
+                    new ArrayList<>(operatorList));
+            boolean isRepeat = false;
+            //检查是否重复
+            if (checkRepeatList.parallelStream().anyMatch(qf -> qf.equals(questionFeature))) {
+                answerList.clear();
+                operatorList.clear();
+                isRepeat = true;
+            }
+            if (!isRepeat) {
+                checkRepeatList.add(questionFeature);
+                //将题目与对应的答案存入 questionsMap
+                Main.questionsMap.put(new Question(questionList).toString(), Util.getNum(answer).toString());
+            }
         }
     }
 
@@ -125,7 +144,6 @@ class ExerciseSevice {
      * 生成题目答案
      *
      * @param questionList 题目
-     * @return 若遇到负数的答案，则反转式子
      */
     static Fraction getAnswer(List questionList) {
         //优先处理括号里的表达式
@@ -148,9 +166,11 @@ class ExerciseSevice {
             if (multiply < divide && multiply != -1 || divide == -1) {
                 //计算乘法
                 questionList = calculate(questionList, multiply, Fraction::multiply);
+                operatorList.add("×");
             } else {
                 //计算除法
                 questionList = calculate(questionList, divide, Fraction::divide);
+                operatorList.add("÷");
             }
         }
         //后计算加减法
@@ -160,9 +180,11 @@ class ExerciseSevice {
             if (add < subtract && add != -1 || subtract == -1) {
                 //计算加法
                 questionList = calculate(questionList, add, Fraction::add);
+                operatorList.add("+");
             } else {
                 //计算减法
                 questionList = calculate(questionList, subtract, Fraction::subtract);
+                operatorList.add("-");
             }
         }
         //返回答案
@@ -187,8 +209,9 @@ class ExerciseSevice {
         if (fraction.getNumerator() <= 0) {
             isNegative = true;
         }
+        answerList.add(fraction);
         if (list.size() == 3) {
-            return new ArrayList(Collections.singletonList(fraction));
+            return new LinkedList(Collections.singletonList(fraction));
         } else {
             list.remove(index);
             list.remove(index);
