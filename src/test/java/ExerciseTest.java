@@ -33,9 +33,9 @@ public class ExerciseTest {
             //生成10000条题目，范围为10
             ExerciseSevice.getQuestion(questionSum, map.get(questionSum));
             int currentQuestion = 1;
-            for (String question : Main.questionsMap.keySet()) {
-                String answer = Main.questionsMap.get(question);
-                System.out.println("第" + currentQuestion + "题：" + question + " = " + answer);
+            for (Question question : ExerciseSevice.questionsList) {
+                String answer = question.getAnswer();
+                System.out.println("第" + currentQuestion + "题：" + question.toString() + " = " + answer);
                 currentQuestion++;
             }
         }

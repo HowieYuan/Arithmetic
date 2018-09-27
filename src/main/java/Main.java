@@ -10,8 +10,6 @@ import java.util.*;
  * @Time 21:03
  */
 public class Main {
-    //存放题目与答案的键值对
-    static Map<String, String> questionsMap = new HashMap<>();
     private final static String PROJECT_PATH = new File("").getAbsolutePath();
     //各个文件的路径
     final static String EXERCISE_PATH = PROJECT_PATH + "\\src\\main\\resources\\exercise.txt";
@@ -23,8 +21,6 @@ public class Main {
      */
 
     public static void main(String[] args) throws IOException {
-        long faster = Long.MAX_VALUE;
-        long start = System.nanoTime();
         int questions, range;
         //匹配命令 -n -r
         if (Arrays.stream(args).anyMatch("-n"::equals) && Arrays.stream(args).anyMatch("-r"::equals)) {
@@ -41,10 +37,5 @@ public class Main {
         } else {
             System.out.println("错误命令！");
         }
-        long duration = (System.nanoTime() - start) / 1000000;
-        if (duration < faster) {
-            faster = duration;
-        }
-        System.out.println(faster);
     }
 }

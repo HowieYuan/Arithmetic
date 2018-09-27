@@ -15,8 +15,10 @@ import java.util.*;
  */
 @SuppressWarnings("unchecked")
 class ExerciseSevice {
+    //存放题目与答案的列表
+    public static List<Question> questionsList = new ArrayList<>();
+    //是否是负数
     private static boolean isNegative = false;
-    private static List<QuestionFeature> checkRepeatList = new ArrayList<>();
     //按计算顺序记录每步的答案
     private static List<Fraction> answerList = new ArrayList<>();
     //按计算顺序记录每个操作符
@@ -38,9 +40,9 @@ class ExerciseSevice {
         answerWriter.flush();
         //分别写入题目与答案于两个文件中
         int currentQuestion = 1;
-        for (String question : Main.questionsMap.keySet()) {
-            String answer = Main.questionsMap.get(question);
-            exerciseWriter.write("第" + currentQuestion + "题：" + question + " =");
+        for (Question question : questionsList) {
+            String answer = question.getAnswer();
+            exerciseWriter.write("第" + currentQuestion + "题：" + question.toString() + " =");
             exerciseWriter.newLine();
             answerWriter.write(currentQuestion + ". " + answer);
             answerWriter.newLine();
@@ -56,7 +58,7 @@ class ExerciseSevice {
      */
     static void getQuestion(int questionsSum, int range) {
         //循环随机生成题目
-        while (Main.questionsMap.size() < questionsSum) {
+        while (questionsList.size() < questionsSum) {
             List questionList = new LinkedList();
             //该表达式是否包含括号
             boolean havebrackets = false;
@@ -123,19 +125,19 @@ class ExerciseSevice {
                 operatorList.clear();
                 continue;
             }
-            QuestionFeature questionFeature = new QuestionFeature(new ArrayList<>(answerList),
-                    new ArrayList<>(operatorList));
+            Question question = new Question(new ArrayList<>(answerList),
+                    new ArrayList<>(operatorList), questionList, Util.getNum(answer).toString());
             boolean isRepeat = false;
             //检查是否重复
-            if (checkRepeatList.parallelStream().anyMatch(qf -> qf.equals(questionFeature))) {
+            if (questionsList.parallelStream().anyMatch(qf -> qf.equals(question))) {
                 answerList.clear();
                 operatorList.clear();
                 isRepeat = true;
             }
             if (!isRepeat) {
-                checkRepeatList.add(questionFeature);
+                questionsList.add(question);
                 //将题目与对应的答案存入 questionsMap
-                Main.questionsMap.put(new Question(questionList).toString(), Util.getNum(answer).toString());
+//                Main.questionsMap.put(new Question(questionList).toString(), Util.getNum(answer).toString());
             }
         }
     }
