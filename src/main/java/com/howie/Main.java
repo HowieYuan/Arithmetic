@@ -23,6 +23,7 @@ public class Main {
     public final static String GRADE_PATH = PROJECT_PATH + "\\src\\main\\resources\\grade.txt";
 
     /*
+    -n 10000 -r 10
     -e C:\Users\Administrator\Desktop\Arithmetic\src\main\resources\exercise.txt -a C:\Users\Administrator\Desktop\Arithmetic\src\main\resources\answers.txt
      */
 
