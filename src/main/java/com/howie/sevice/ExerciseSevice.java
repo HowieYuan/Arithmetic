@@ -1,3 +1,8 @@
+package com.howie.sevice;
+
+import com.howie.*;
+import com.howie.model.Question;
+import com.howie.util.Util;
 import org.apache.commons.math3.fraction.Fraction;
 
 import java.io.BufferedWriter;
@@ -14,7 +19,7 @@ import java.util.*;
  * @Time 17:12
  */
 @SuppressWarnings("unchecked")
-class ExerciseSevice {
+public class ExerciseSevice {
     //存放题目与答案的列表
     public static List<Question> questionsList = new ArrayList<>();
     //是否是负数
@@ -30,7 +35,7 @@ class ExerciseSevice {
      * @param range     取值范围
      * @param questions 题目总数
      */
-    static void generateExercise(int range, int questions) throws IOException {
+    public static void generateExercise(int range, int questions) throws IOException {
         //生成题目
         ExerciseSevice.getQuestion(questions, range);
         BufferedWriter exerciseWriter = new BufferedWriter(new FileWriter(Main.EXERCISE_PATH));
@@ -56,7 +61,7 @@ class ExerciseSevice {
     /**
      * 随机生成题目与对应的答案, 存入 questionsMap
      */
-    static void getQuestion(int questionsSum, int range) {
+    public static void getQuestion(int questionsSum, int range) {
         //循环随机生成题目
         while (questionsList.size() < questionsSum) {
             List questionList = new LinkedList();
@@ -137,7 +142,7 @@ class ExerciseSevice {
             if (!isRepeat) {
                 questionsList.add(question);
                 //将题目与对应的答案存入 questionsMap
-//                Main.questionsMap.put(new Question(questionList).toString(), Util.getNum(answer).toString());
+//                com.howie.Main.questionsMap.put(new com.howie.model.Question(questionList).toString(), Util.getNum(answer).toString());
             }
         }
     }

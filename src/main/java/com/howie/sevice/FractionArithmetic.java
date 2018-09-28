@@ -1,3 +1,5 @@
+package com.howie.sevice;
+
 import org.apache.commons.math3.fraction.Fraction;
 
 /**

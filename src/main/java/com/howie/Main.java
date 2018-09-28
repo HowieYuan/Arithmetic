@@ -1,3 +1,9 @@
+package com.howie;
+
+
+import com.howie.sevice.CheckSevice;
+import com.howie.sevice.ExerciseSevice;
+
 import java.io.*;
 import java.util.*;
 
@@ -12,9 +18,9 @@ import java.util.*;
 public class Main {
     private final static String PROJECT_PATH = new File("").getAbsolutePath();
     //各个文件的路径
-    final static String EXERCISE_PATH = PROJECT_PATH + "\\src\\main\\resources\\exercise.txt";
-    final static String ANSWER_PATH = PROJECT_PATH + "\\src\\main\\resources\\answers.txt";
-    final static String GRADE_PATH = PROJECT_PATH + "\\src\\main\\resources\\grade.txt";
+    public final static String EXERCISE_PATH = PROJECT_PATH + "\\src\\main\\resources\\exercise.txt";
+    public final static String ANSWER_PATH = PROJECT_PATH + "\\src\\main\\resources\\answers.txt";
+    public final static String GRADE_PATH = PROJECT_PATH + "\\src\\main\\resources\\grade.txt";
 
     /*
     -e C:\Users\Administrator\Desktop\Arithmetic\src\main\resources\exercise.txt -a C:\Users\Administrator\Desktop\Arithmetic\src\main\resources\answers.txt

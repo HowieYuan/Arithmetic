@@ -1,3 +1,5 @@
+package com.howie.util;
+
 import org.apache.commons.math3.fraction.Fraction;
 
 import java.util.Random;
@@ -10,13 +12,13 @@ import java.util.Random;
  * @Date 2018-09-24
  * @Time 17:10
  */
-class Util {
+public class Util {
     private final static String[] OPERATOR = {"+", "×", "÷", "-"};
 
     /**
      * 将数值转换为分数
      */
-    static Fraction getFraction(String num) {
+    public static Fraction getFraction(String num) {
         //带分数
         if (num.contains("'")) {
             int index1 = num.indexOf("'");
@@ -40,7 +42,7 @@ class Util {
      *
      * @param range 取值范围
      */
-    static Fraction getFraction(int range) {
+    public static Fraction getFraction(int range) {
         Random random = new Random();
         //分母
         int denominator = random.nextInt(9) + 2;
@@ -67,14 +69,14 @@ class Util {
     /**
      * 生产四则运算符
      */
-    static String getOperator() {
+    public static String getOperator() {
         return OPERATOR[(int) (Math.random() * 4)];
     }
 
     /**
      * 将 Fraction 类型格式化
      */
-    static Object getNum(Fraction fraction) {
+    public static Object getNum(Fraction fraction) {
         int numerator = fraction.getNumerator();
         int denominator = fraction.getDenominator();
         int integer;

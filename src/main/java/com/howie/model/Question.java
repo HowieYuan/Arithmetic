@@ -1,3 +1,6 @@
+package com.howie.model;
+
+import com.howie.util.Util;
 import org.apache.commons.math3.fraction.Fraction;
 
 import java.util.List;

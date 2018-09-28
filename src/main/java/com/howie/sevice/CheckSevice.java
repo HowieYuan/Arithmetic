@@ -1,3 +1,7 @@
+package com.howie.sevice;
+
+import com.howie.Main;
+import com.howie.util.Util;
 import org.apache.commons.math3.fraction.Fraction;
 
 import java.io.*;
@@ -16,7 +20,7 @@ import static java.util.stream.Collectors.toList;
  * @Time 17:07
  */
 @SuppressWarnings("unchecked")
-class CheckSevice {
+public class CheckSevice {
     //正确题目个数
     private static int correct = 0;
     //错误题目个数
@@ -32,7 +36,7 @@ class CheckSevice {
      * @param exercisePath 题目文件路径
      * @param answerPath   答案文件路径
      */
-    static void checkExercise(String exercisePath, String answerPath) throws IOException {
+    public static void checkExercise(String exercisePath, String answerPath) throws IOException {
         BufferedReader exerciseReader = new BufferedReader(new FileReader(exercisePath));
         List<String> operatorList = new ArrayList<>(Arrays.asList("+", "-", "×", "÷", "(", ")"));
         //读取题目文件，并生成题目的答案
