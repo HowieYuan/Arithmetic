@@ -55,7 +55,7 @@ public class CheckSevice {
                     }
                     return questionList;
                 })
-                .map(questionList -> ExerciseSevice.getAnswer(questionList))
+                .map(ExerciseSevice::getAnswer)
                 .collect(toList());
         //读取答案文件
         BufferedReader answerReader = new BufferedReader(new FileReader(answerPath));

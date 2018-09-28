@@ -59,7 +59,7 @@ public class ExerciseSevice {
     }
 
     /**
-     * 随机生成题目与对应的答案, 存入 questionsMap
+     * 随机生成题目与对应的答案, 存入 questionsList
      */
     public static void getQuestion(int questionsSum, int range) {
         //循环随机生成题目
@@ -141,8 +141,6 @@ public class ExerciseSevice {
             }
             if (!isRepeat) {
                 questionsList.add(question);
-                //将题目与对应的答案存入 questionsMap
-//                com.howie.Main.questionsMap.put(new com.howie.model.Question(questionList).toString(), Util.getNum(answer).toString());
             }
         }
     }
